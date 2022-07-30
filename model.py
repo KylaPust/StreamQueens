@@ -1,4 +1,3 @@
-"""Models for movie ratings app."""
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,8 +13,7 @@ class User(db.Model):
     password = db.Column(db.String(50))
 
     def __repr__(self):
-        return f'<User user_id={self.user_id} email={self.email}>'
-
+      return f'<User user_id={self.user_id} email={self.email}>'
 
 class Movie(db.Model):
 
@@ -37,8 +35,8 @@ class Watch(db.Model):
     __tablename__ = "watched"
 
     watched_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.String, db.ForeignKey("users.user_id"))
-    movie_id = db.Column(db.String, db.ForeignKey("movies.movie_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    movie_id = db.Column(db.Integer, db.ForeignKey("movies.movie_id"))
     
     user = db.relationship("User", backref="watched", foreign_keys=user_id)
     movie = db.relationship("Movie", backref="watched", foreign_keys=movie_id)
@@ -55,7 +53,7 @@ def connect_to_db(flask_app, db_uri="postgresql:///db", echo=True):
 
     db.app = flask_app
     db.init_app(flask_app)
-
+    db.create_all()
     print("Connected to the db!")
 
 

@@ -24,3 +24,7 @@ def get_all_users():
     all_users = User.query.all()
 
     return all_users
+
+if __name__ == '__main__':
+    from server import app
+    connect_to_db(app)

@@ -36,7 +36,7 @@ def create_newaccount():
     email = request.form.get("email")
     password = request.form.get("password")
     existing_user = crud.get_user_by_email(email)
-
+    
     if existing_user:
         flash(f"An account already exists for this email: {email}")
     else:

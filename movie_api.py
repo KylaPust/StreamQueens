@@ -38,7 +38,7 @@ def get_api_results(genre, type, service):
 	querystring = {"country":"us","service":{service},"type":{type},"genre":{genre},"page":"1","output_language":"en","language":"en"}
 
 	headers = {
-	"X-RapidAPI-Key": os.environ['API_KEY']
+	"X-RapidAPI-Key": "a9ea500941msh7faeb06cb2027e8p12dd98jsn94738e7d4524",
 	"X-RapidAPI-Host": "streaming-availability.p.rapidapi.com"
 	}
 
