@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock %}
+
+{% block body %}
+<ul>
+{% for movie in movies %}
+  <li><a href="/movies/{{movie.movie_id}}">{{movie.title}}</a>
+    <img src="{{ movie.poster_path }}" width="300" height="400"></li>
+{% endfor %}
+</ul>
+{% endblock %}

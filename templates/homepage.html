@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}StreamQueens{% endblock %}
+
+{% block body %}
+  <h1>StreamQueens Homepage</h1>
+
+
+  <form action="/login" method="POST">
+    <p>
+      <b>Login</b>&nbsp;
+      Email <input type="text" name="email">
+      Password <input type="password" name="password">
+      <input type="submit">
+    </p>
+  </form>
+<p>Don't have an account yet?</p>
+<form action="/newaccount" method="POST">
+  <p>
+    <b>Create an Account</b>&nbsp;
+    Email <input type="text" name="email">
+    Password <input type="password" name="password">
+    <input type="submit">
+  </p>
+</form>
+
+<h2>Create a New Search</h2>
+<form action="/createdsearch" method="POST">
+  <label for="genre">Select a genre</label>
+  <select id="genre" name="genre">
+      <option value="28">Action</option>
+      <option value="35">Comedy</option>
+  </select> <input type="submit"></form>
+
+
+{% endblock %}
