@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, flash, session, redirect
-from model import Watch, connect_to_db, db
-import users, movie_api, crud
+from flask import Flask, jsonify, render_template, request, flash, session, redirect
+from model import Watch, Movie, connect_to_db, db
+import users, movie_api, crud, model
 
 from jinja2 import StrictUndefined
 
@@ -10,8 +10,9 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def homepage():
+    genres = movie_api.genres_dict
 
-    return render_template("homepage.html")
+    return render_template("homepage.html", genres=genres)
 
 @app.route('/login', methods=['POST'])
 def user_login():
@@ -50,9 +51,20 @@ def create_newaccount():
 
 @app.route('/createdsearch')
 def query_results():
-    movies = movie_api.get_api_results("99", "movie", "netflix")
-    flash("Here are your results")
-    return render_template("createdsearch.html",movies=movies)
+
+    genre = int(request.args.get("genre-id"))
+    # service = int(request.args.get("service"))
+    movies = movie_api.get_api_results(genre, "movie", "netflix")
+    
+    json_movies = {}
+
+    for movie in movies:
+        json_movies[movie.title] = movie.to_dict()
+ 
+    #flash("Here are your results")
+    #return render_template("createdsearch.html",movies=movies)
+    return jsonify(json_movies)
+    #return movies
 
 @app.route('/account')
 def user_account():
@@ -61,5 +73,7 @@ def user_account():
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
+
+    connect_to_db(app)
 
     app.run(host="0.0.0.0", debug=True)

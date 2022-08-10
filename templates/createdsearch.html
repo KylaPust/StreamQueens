@@ -2,10 +2,23 @@
 {% block title %}Search Results{% endblock %}
 
 {% block body %}
-<ul>
-{% for movie in movies %}
-  <li><a href="/movies/{{movie.movie_id}}">{{movie.title}}</a>
-    <img src="{{ movie.poster_path }}" width="300" height="400"></li>
-{% endfor %}
-</ul>
+<form id="get-movies">
+  <label for="genre-id">
+    Select a genre:
+  </label>
+  <select id="genre-id" name="genre_id">
+    <option value="">Choose a genre</option>
+    <option value="18">18</option>
+  </select>
+  <input type="submit">
+</form>
+
+<div id="disply-movie">
+  <h1>Movie Results</h1>
+  <dl>
+    <dt>Movie</dt>
+    <dd>{{movies}}</dd>
+    <dd id="title">Unkown</dd>
+  </dl>
+</div>
 {% endblock %}

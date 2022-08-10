@@ -5,7 +5,7 @@
 <ul>
 {% for movie in movies %}
   <li><a href="/movies/{{movie.movie_id}}">{{movie.title}}</a>
-    <img src="{{ movie.poster_path }}" width="300" height="400"></li>
+    <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="300" height="400"></li>
 {% endfor %}
 </ul>
 {% endblock %}

@@ -28,7 +28,12 @@ class Movie(db.Model):
     streaming = db.Column(db.String)
 
     def __repr__(self):
-        return f'<Movie movie_id: {self.movie_id} title: {self.title}> link: {self.link}'
+        return f'<Movie movie_id: {self.movie_id} title: {self.title}> link: {self.link} poster: {self.poster_path}>'
+
+    def to_dict(self):
+        return{'movie_id': self.movie_id,
+                'title': self.title,
+                'poster_path': self.poster_path}
 
 class Watch(db.Model):
 
