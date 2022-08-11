@@ -18,7 +18,10 @@
         evt.preventDefault();
 
         const genre = document.querySelector('#genre-id').value;
-        // const service = document.querySelector('#service').value;
+        const service = document.querySelectorAll("#service option:checked");
+        const selectedOptions = [...service].map(s=>s.value);
+        console.log(typeof(service));
+        console.log(selectedOptions);
         console.log(genre);
         document.querySelector('#title').innerHTML = "";
         fetch(`/createdsearch?genre-id=${genre}`)
