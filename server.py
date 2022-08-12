@@ -53,16 +53,20 @@ def create_newaccount():
 def query_results():
 
     genre = int(request.args.get("genre-id"))
-    # service = int(request.args.get("service"))
-    movies = movie_api.get_api_results(genre, "movie", "netflix")
-    
+    # genre = request.json.get(genre)
+    services = request.args.get("service").split(",")
+    print(services)
     json_movies = {}
 
-    for movie in movies:
-        json_movies[movie.title] = movie.to_dict()
+    for service in services:
+    
+        movies = movie_api.get_api_results(genre, "movie", service)
+
+        for movie in movies:
+            json_movies[movie.title] = movie.to_dict()
  
-    #flash("Here are your results")
-    #return render_template("createdsearch.html",movies=movies)
+    # flash("Here are your results")
+    # return render_template("createdsearch.html",movies=movies)
     return jsonify(json_movies)
     #return movies
 

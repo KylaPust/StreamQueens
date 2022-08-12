@@ -18,13 +18,11 @@
         evt.preventDefault();
 
         const genre = document.querySelector('#genre-id').value;
-        const service = document.querySelectorAll("#service option:checked");
-        const selectedOptions = [...service].map(s=>s.value);
-        console.log(typeof(service));
+        const selectedOptions = document.querySelectorAll("#service option:checked");
+        const service = [...selectedOptions].map(s=>s.value);
         console.log(selectedOptions);
-        console.log(genre);
         document.querySelector('#title').innerHTML = "";
-        fetch(`/createdsearch?genre-id=${genre}`)
+        fetch(`/createdsearch?genre-id=${genre}&service=${service}`)
         .then((response) => response.text())
         .then((data) => { const dataJson = JSON.parse(data)  
             const keys = Object.keys(dataJson);
@@ -32,10 +30,12 @@
                 // console.log(dataJson);
                 // console.log(Object.keys(dataJson));
                  const keyTitle = dataJson[key]["title"]
+                 const streamingsite = service
+                 const link = dataJson[key]["link"]
                  const keyPoster = ("https://image.tmdb.org/t/p/original" + dataJson[key]["poster_path"])
-                 console.log(keyTitle, keyPoster);
-                 const keyRender = ("<li>" + keyTitle + "<br>" + "<img src=" + '"' + keyPoster + '"' 
-                 + " " + 'width="300"' + " " + 'height="400">' + "</li>");
+                 const keyRender = ("<li>" + keyTitle + "  " + streamingsite + "<br>" + "<a href=" + '"' + link + '">' +
+                 "<img src=" + '"' + keyPoster + '"' 
+                 + " " + 'width="300"' + " " + 'height="400"></a>' + "</li>");
 
                 document.querySelector('#title').insertAdjacentHTML('beforeend', keyRender)};
                 // innerHTML = dataJson["1922"]["title"];

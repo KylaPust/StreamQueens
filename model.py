@@ -33,7 +33,8 @@ class Movie(db.Model):
     def to_dict(self):
         return{'movie_id': self.movie_id,
                 'title': self.title,
-                'poster_path': self.poster_path}
+                'poster_path': self.poster_path,
+                'link': self.link}
 
 class Watch(db.Model):
 
