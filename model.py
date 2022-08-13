@@ -34,7 +34,8 @@ class Movie(db.Model):
         return{'movie_id': self.movie_id,
                 'title': self.title,
                 'poster_path': self.poster_path,
-                'link': self.link}
+                'link': self.link,
+                'streaming': self.streaming}
 
 class Watch(db.Model):
 

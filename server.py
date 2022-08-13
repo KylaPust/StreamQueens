@@ -26,10 +26,10 @@ def user_login():
             flash("Your password is wrong, try again")
         else:
             session['email'] = email
-            flash(f"{login_user.email}, you're are all set!")
+            flash(f"{login_user.email}, you're all set!")
     else:
         flash("Invalid Email. Try again.")
-    return redirect('/')
+    return redirect("/")
 
 @app.route('/newaccount', methods=["POST"])
 def create_newaccount():
@@ -53,14 +53,15 @@ def create_newaccount():
 def query_results():
 
     genre = int(request.args.get("genre-id"))
-    # genre = request.json.get(genre)
+    result_type = request.args.get("result_type")
+    print(result_type)
     services = request.args.get("service").split(",")
     print(services)
     json_movies = {}
 
     for service in services:
     
-        movies = movie_api.get_api_results(genre, "movie", service)
+        movies = movie_api.get_api_results(genre, result_type, service)
 
         for movie in movies:
             json_movies[movie.title] = movie.to_dict()
@@ -70,10 +71,31 @@ def query_results():
     return jsonify(json_movies)
     #return movies
 
+@app.route("/addtowatchlist")
+def add_watchlist():
+    flash("this movie was added to your watchlist")
+    return 
+
 @app.route('/account')
 def user_account():
 
-    return render_template("account.html")
+    if 'email' in session:
+        email = session['email']
+        return render_template("account.html", email=email)
+    else:
+        flash("Oops, please log in before viewing your account")
+        return redirect("/")
+
+@app.route('/logout')
+def user_logout():
+
+    if 'email' in session:
+        session.pop('email', None)
+        flash("You are no longer logged in")
+        return redirect('/')
+    else:
+        flash("You're not logged in yet")
+        return redirect('/')
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

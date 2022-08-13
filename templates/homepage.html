@@ -3,7 +3,14 @@
 
 {% block body %}
   <h1>StreamQueens Homepage</h1>
-
+  <form action="/account">
+    <p>
+      <input type="submit" value="Go to Account">
+    </p></form>
+    <form action="/logout">
+      <p>
+        <input type="submit" value="Logout">
+      </p></form>
 
   <form action="/login" method="POST">
     <p>
@@ -32,7 +39,12 @@
         <option value="12">Adventure</option>  
         <option value="14">Fantasy</option>  
         </select>    
-         
+        <br>
+        <legend>Movie or Show?</legend>    
+        <select id="result_type">
+        <option value="movie">Movie</option>  
+        <option value="series">Show</option>
+          </select>
         <br>
         <legend> Select streaming services </legend>
         <select multiple id="service">
@@ -56,7 +68,7 @@
   <h1>Movie Results</h1>
   <dl>
   
-    <dd id="title">Unkown</dd>
+    <dd id="title"></dd>
   </dl>
 </div>
 <script src="/static/app.jsx"></script>
