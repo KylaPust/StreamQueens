@@ -73,8 +73,11 @@ def query_results():
 
 @app.route("/addtowatchlist")
 def add_watchlist():
-    flash("this movie was added to your watchlist")
-    return 
+
+    if 'email' in session:
+        return f"{session['email']} this movie was added to your watchlist"
+    else:
+        return "Please login before adding movies to a watchlist"
 
 @app.route('/account')
 def user_account():

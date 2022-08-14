@@ -34,13 +34,27 @@
                  const streamingsite = dataJson[key]['streaming']
                  const link = dataJson[key]["link"]
                  const keyPoster = ("https://image.tmdb.org/t/p/original" + dataJson[key]["poster_path"])
-                 const keyRender = ("<li>" + keyTitle + "  on " + streamingsite + "<br>" + '<br></br>' 
-                 + '<form action="/addtowatchlist"><input type="submit" value="Add to Watchlist"></form>' + "</li>" + "<a href=" + '"' + link + '">' +
+                 const keyRender = ("<li>" + keyTitle + "  on " + streamingsite + "<br>"
+                 + '<form action="/addtowatchlist" id="rendered_list"'+'value="'+keyTitle+'"><button type="submit" id="movie" value="'+
+                 keyTitle +'">Add to Watchlist</button></form>' 
+                 + "</li>" + "<a href=" + '"' + link + '">' +
                  "<img src=" + '"' + keyPoster + '"' 
                  + " " + 'width="300"' + " " + 'height="400"></a>');
 
                 document.querySelector('#title').insertAdjacentHTML('beforeend', keyRender)};
                 // innerHTML = dataJson["1922"]["title"];
+
+                const watchlist = document.querySelectorAll('#rendered_list');
+
+                for (let i = 0; i < watchlist.length; i++){
+                watchlist[i].addEventListener('submit', (evt) => {
+                    evt.preventDefault();
+                    const choice = watchlist[i]
+                    const movie = choice.querySelector('#movie').value;
+                    console.log(choice);
+                    console.log(movie);}
+                )};
             });   
     });
+
     
