@@ -3,6 +3,11 @@
 
 {% block body %}
 This is your account {{email}}
+Your watchlist:
+{% for movie in all_watched %}
+<li>{{movie.title}} on {{movie.streaming}}</li>
+<a href= "{{movie.link}}"> <img src= "https://image.tmdb.org/t/p/original{{movie.poster_path}}" width="300" height="400"></a>
+{%endfor%}
 <form action="/">
     <p>
       <input type="submit" value="Go to homepage">

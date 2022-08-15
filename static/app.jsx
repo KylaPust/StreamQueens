@@ -35,8 +35,8 @@
                  const link = dataJson[key]["link"]
                  const keyPoster = ("https://image.tmdb.org/t/p/original" + dataJson[key]["poster_path"])
                  const keyRender = ("<li>" + keyTitle + "  on " + streamingsite + "<br>"
-                 + '<form action="/addtowatchlist" id="rendered_list"'+'value="'+keyTitle+'"><button type="submit" id="movie" value="'+
-                 keyTitle +'">Add to Watchlist</button></form>' 
+                 + '<form action="/addtowatchlist" id="rendered_list"'+'value="'+dataJson[key]+'"><button type="submit" id="movie" value="'+
+                 dataJson[key]['movie_id'] +'">Add to Watchlist</button></form>' 
                  + "</li>" + "<a href=" + '"' + link + '">' +
                  "<img src=" + '"' + keyPoster + '"' 
                  + " " + 'width="300"' + " " + 'height="400"></a>');
@@ -52,7 +52,19 @@
                     const choice = watchlist[i]
                     const movie = choice.querySelector('#movie').value;
                     console.log(choice);
-                    console.log(movie);}
+                    console.log(movie);
+
+                    fetch(`/addtowatchlist?movie=${movie}`)
+                    .then((response) => response.text())
+                    .then((data) => {const flashmessage = data
+                        
+                        console.log(flashmessage)
+                        
+
+                    
+                    
+                    
+                    })}
                 )};
             });   
     });

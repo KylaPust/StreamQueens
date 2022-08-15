@@ -64,7 +64,7 @@ def query_results():
         movies = movie_api.get_api_results(genre, result_type, service)
 
         for movie in movies:
-            json_movies[movie.title] = movie.to_dict()
+            json_movies[movie.movie_id] = movie.to_dict()
  
     # flash("Here are your results")
     # return render_template("createdsearch.html",movies=movies)
@@ -75,7 +75,16 @@ def query_results():
 def add_watchlist():
 
     if 'email' in session:
-        return f"{session['email']} this movie was added to your watchlist"
+        movie_id = request.args.get("movie")
+        email = session['email']
+        user = users.get_user_by_email(email)
+        user_id = user.user_id
+
+        watchedmovie = users.add_to_watchlist(user_id, movie_id)
+
+        print(watchedmovie)
+        flash(f"Okay, {email}. {watchedmovie} has been added to your list")
+        return f"{session['email']}, {watchedmovie} was added to your watchlist"
     else:
         return "Please login before adding movies to a watchlist"
 
@@ -84,7 +93,14 @@ def user_account():
 
     if 'email' in session:
         email = session['email']
-        return render_template("account.html", email=email)
+        user = users.get_user_by_email(email)
+        user_id = user.user_id
+        all_watched = users.get_all_watched_by_user(user_id)
+        movies = []
+        for movie in all_watched:
+            movieobj = users.get_movie_by_key(movie.movie_id)
+            movies.append(movieobj)
+        return render_template("account.html", email=email, all_watched=movies)
     else:
         flash("Oops, please log in before viewing your account")
         return redirect("/")
