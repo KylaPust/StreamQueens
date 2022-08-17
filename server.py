@@ -75,16 +75,20 @@ def query_results():
 def add_watchlist():
 
     if 'email' in session:
-        movie_id = request.args.get("movie")
+        movie_id = int(request.args.get("movie"))
         email = session['email']
         user = users.get_user_by_email(email)
         user_id = user.user_id
 
-        watchedmovie = users.add_to_watchlist(user_id, movie_id)
+        # if movie_id == 
+        allwatched = users.get_all_watched_by_user(user_id)
+        allwatched_movieids = users.get_all_watched_movieids_by_user(user_id)
 
-        print(watchedmovie)
-        flash(f"Okay, {email}. {watchedmovie} has been added to your list")
-        return f"{session['email']}, {watchedmovie} was added to your watchlist"
+        if movie_id not in allwatched_movieids:
+            watchedmovie = users.add_to_watchlist(user_id, movie_id)
+            return f"{session['email']}, {watchedmovie} was added to your watchlist {movie_id} not in {allwatched_movieids}"
+        else:
+            return f"{movie_id} is already in {allwatched_movieids}"
     else:
         return "Please login before adding movies to a watchlist"
 
