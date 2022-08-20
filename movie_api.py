@@ -36,7 +36,7 @@ def get_api_results(genre, type, service):
 	url = "https://streaming-availability.p.rapidapi.com/search/basic"
 
 	#querystring = {"country":"us","service":"netflix","type":"movie","genre":"28","page":"1","output_language":"en","language":"en"}
-	querystring = {"country":"us","service":{service},"type":{type},"genre":{genre}, "page":"3", "output_language":"en","language":"en"}
+	querystring = {"country":"us","service":{service},"type":{type},"genre":{genre}, "page":"1", "output_language":"en","language":"en"}
 
 	headers = {
 	"X-RapidAPI-Key": "a9ea500941msh7faeb06cb2027e8p12dd98jsn94738e7d4524",

@@ -4,12 +4,20 @@
 {% block body %}
 This is your account {{email}}
 Your watchlist:
+<div id="account-watchlist">
+    <h1>Movie Results</h1>
+    <dl>
 {% for movie in all_watched %}
 <li>{{movie.title}} on {{movie.streaming}}</li>
 <a href= "{{movie.link}}"> <img src= "https://image.tmdb.org/t/p/original{{movie.poster_path}}" width="300" height="400"></a>
+<form action="/removefromwatchlist" id="removemovie" value="{{movie}}">
+    <button type="submit" id="movie" value="{{movie['movie_id']}}">Remove {{movie.title}} from Watchlist</button></form>
 {%endfor%}
+</dl>
+</div>
 <form action="/">
     <p>
       <input type="submit" value="Go to homepage">
     </p></form>
-{% endblock %}
+    <script src="/static/account.jsx"></script>
+    {% endblock %}

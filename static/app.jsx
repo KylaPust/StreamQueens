@@ -1,18 +1,4 @@
-// function APP() {
-    // const [movies, setMovies] = React.userState({});
-
-    // React.useEffect(() => {
-    //     fetch('/createdsearch')
-    //     .then((response) => response.json())
-    //     .then((movieData) => {
-    //         setMovies(movieData);
-
-    //     });
-    // }, []);
-
-// ReactDOM.render(<App />, document.querySelector('#root'))
-
-    const get_movies = document.querySelector('#get-movies');
+const get_movies = document.querySelector('#get-movies');
 
     get_movies.addEventListener('submit', (evt) => {
         evt.preventDefault();
@@ -68,5 +54,4 @@
                 )};
             });   
     });
-
     

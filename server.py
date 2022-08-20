@@ -92,6 +92,20 @@ def add_watchlist():
     else:
         return "Please login before adding movies to a watchlist"
 
+@app.route("/removefromwatchlist")
+def remove_watchlist():
+    
+    movie_id = int(request.args.get("movie"))
+    email = session['email']
+    user = users.get_user_by_email(email)
+    user_id = user.user_id
+
+    watchlistmovie = users.get_watched_by_movieid_user(user_id, movie_id)
+    watched_id = watchlistmovie.watched_id
+    users.delete_fromwatchlist(watched_id)
+    
+    return f"{session['email']}, user_id: {user_id} movie_id: {movie_id}, watchlist: {watchlistmovie}"
+
 @app.route('/account')
 def user_account():
 

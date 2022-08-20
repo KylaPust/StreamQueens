@@ -98,3 +98,16 @@ def get_all_watched_movieids_by_user(user_id):
         movie_ids.append(movie_id)
 
     return movie_ids
+
+def get_watched_by_movieid_user(user_id, movie_id):
+
+    watchedmovie = Watch.query.filter_by(user_id=user_id, movie_id=movie_id).first()
+
+    return watchedmovie
+
+def delete_fromwatchlist(watched_id):
+
+    Watch.query.filter(Watch.watched_id==watched_id).delete()
+    db.session.commit()
+
+    return None
