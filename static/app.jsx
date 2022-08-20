@@ -4,12 +4,13 @@ const get_movies = document.querySelector('#get-movies');
         evt.preventDefault();
 
         const genre = document.querySelector('#genre-id').value;
+        const exclude_watchlist = document.querySelector('#exclude_watchlist').value;
         const result_type = document.querySelector('#result_type').value;
         const selectedOptions = document.querySelectorAll("#service option:checked");
         const service = [...selectedOptions].map(s=>s.value);
         // console.log(selectedOptions);
         document.querySelector('#title').innerHTML = "";
-        fetch(`/createdsearch?genre-id=${genre}&service=${service}&result_type=${result_type}`)
+        fetch(`/createdsearch?genre-id=${genre}&service=${service}&result_type=${result_type}&exclude_watchlist=${exclude_watchlist}`)
         .then((response) => response.text())
         .then((data) => { const dataJson = JSON.parse(data)  
             const keys = Object.keys(dataJson);

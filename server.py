@@ -11,7 +11,6 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def homepage():
     genres = users.genres_dicts()
-    print(type(genres))
 
     return render_template("homepage.html", genres=genres)
 
@@ -55,9 +54,9 @@ def query_results():
 
     genre = int(request.args.get("genre-id"))
     result_type = request.args.get("result_type")
-    print(result_type)
     services = request.args.get("service").split(",")
-    print(services)
+    exclude_watchlist = request.args.get("exclude_watchlist")
+    
     json_movies = {}
 
     for service in services:
@@ -65,7 +64,20 @@ def query_results():
         movies = movie_api.get_api_results(genre, result_type, service)
 
         for movie in movies:
-            json_movies[movie.movie_id] = movie.to_dict()
+            if exclude_watchlist == 'yes' and 'email' in session:
+                movie_id = movie.movie_id
+                email = session['email']
+                user = users.get_user_by_email(email)
+                user_id = user.user_id
+
+                allwatched_movieids = users.get_all_watched_movieids_by_user(user_id)
+            
+                if movie_id in allwatched_movieids:
+                    print(f'movies once removed {movies}')
+                else:
+                    json_movies[movie.movie_id] = movie.to_dict()
+            else:
+                json_movies[movie.movie_id] = movie.to_dict()
  
     # flash("Here are your results")
     # return render_template("createdsearch.html",movies=movies)
@@ -81,8 +93,6 @@ def add_watchlist():
         user = users.get_user_by_email(email)
         user_id = user.user_id
 
-        # if movie_id == 
-        allwatched = users.get_all_watched_by_user(user_id)
         allwatched_movieids = users.get_all_watched_movieids_by_user(user_id)
 
         if movie_id not in allwatched_movieids:
