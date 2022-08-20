@@ -2,6 +2,10 @@
 {% block title %}StreamQueens: My Account{% endblock %}
 
 {% block body %}
+<form action="/">
+    <p>
+      <input type="submit" value="Go to homepage">
+    </p></form>
 This is your account {{email}}
 Your watchlist:
 <div id="account-watchlist">
@@ -15,9 +19,5 @@ Your watchlist:
 {%endfor%}
 </dl>
 </div>
-<form action="/">
-    <p>
-      <input type="submit" value="Go to homepage">
-    </p></form>
     <script src="/static/account.jsx"></script>
     {% endblock %}
