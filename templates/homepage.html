@@ -35,8 +35,9 @@
     <fieldset>      
         <legend>Select a genre</legend>    
         <select id="genre-id">
-        <option value="18">Drama</option>  
-        <option value="12">Adventure</option>  
+        {%for key, value in genres.items()%}
+        <option value="{{key}}">{{value}}</option>
+        {%endfor%}  
         <option value="14">Fantasy</option>  
         </select>    
         <br>

@@ -10,7 +10,8 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def homepage():
-    genres = movie_api.genres_dict
+    genres = users.genres_dicts()
+    print(type(genres))
 
     return render_template("homepage.html", genres=genres)
 
