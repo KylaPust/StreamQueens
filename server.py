@@ -76,8 +76,12 @@ def query_results():
                     print(f'movies once removed {movies}')
                 else:
                     json_movies[movie.movie_id] = movie.to_dict()
-            else:
+            elif 'email' in session:
                 json_movies[movie.movie_id] = movie.to_dict()
+            elif 'email' not in session:
+                flash('please log in to use the exclude from watchlist feature')
+                json_movies[movie.movie_id] = movie.to_dict()
+            
  
     # flash("Here are your results")
     # return render_template("createdsearch.html",movies=movies)
@@ -116,6 +120,17 @@ def remove_watchlist():
     users.delete_fromwatchlist(watched_id)
     
     return f"{session['email']}, user_id: {user_id} movie_id: {movie_id}, watchlist: {watchlistmovie}"
+
+@app.route("/ratemovie")
+def rate_movie():
+    rating = request.args.get("rating")
+    email = session['email']
+    user = users.get_user_by_email(email)
+    user_id = user.user_id
+    movie_id = request.args.get("movie")
+    new_rating = users.create_rating(user_id, movie_id, rating)
+    print(new_rating)
+    return f"movie_id: {movie_id} movie is rated: {new_rating}"
 
 @app.route('/account')
 def user_account():

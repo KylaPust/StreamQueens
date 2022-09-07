@@ -52,6 +52,22 @@ class Watch(db.Model):
     def __repr__(self):
         return f'<Watch watched_id: {self.watched_id} user_id: {self.user_id}> movie_id: {self.movie_id}'
 
+class Rating(db.Model):
+
+    __tablename__ = "ratings"
+
+    rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    movie_id = db.Column(db.Integer, db.ForeignKey("movies.movie_id"))
+    rating = db.Column(db.Integer)
+    
+    user = db.relationship("User", backref="ratings", foreign_keys=user_id)
+    movie = db.relationship("Movie", backref="ratings", foreign_keys=movie_id)
+
+
+    def __repr__(self):
+        return f'<Rating rating_id: {self.rating_id} rating: {self.rating} user_id: {self.user_id}> movie_id: {self.movie_id}'
+
 
 def connect_to_db(flask_app, db_uri="postgresql:///db", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

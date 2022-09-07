@@ -1,4 +1,4 @@
-from model import db, User, Movie, Watch
+from model import db, User, Movie, Watch, Rating
 
 def create_user(email2, password2):
     """Create and return a new user."""
@@ -111,6 +111,24 @@ def delete_fromwatchlist(watched_id):
     db.session.commit()
 
     return None
+
+def create_rating(user_id, movie_id, rating):
+    
+    existing_rating = find_rating_by_user_movie(user_id, movie_id)
+    if existing_rating:
+        return existing_rating
+    else:
+        rating = Rating(user_id=user_id, movie_id=movie_id, rating=rating)
+
+        db.session.add(rating)
+        db.session.commit()
+        return rating
+
+def find_rating_by_user_movie(user_id, movie_id):
+    
+    rating = Rating.query.filter_by(user_id=user_id, movie_id=movie_id).first()
+
+    return rating
 
 def genres_dicts():
 

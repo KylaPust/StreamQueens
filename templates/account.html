@@ -15,8 +15,25 @@ Your watchlist:
 <li>{{movie.title}} on {{movie.streaming}}</li>
 <a href= "{{movie.link}}"> <img src= "https://image.tmdb.org/t/p/original{{movie.poster_path}}" width="300" height="400"></a>
 <form action="/removefromwatchlist" id="removemovie" value="{{movie}}">
-    <button type="submit" id="movie" value="{{movie['movie_id']}}">Remove {{movie.title}} from Watchlist</button></form>
-{%endfor%}
+    <button type="submit" id="movie" value="{{movie['movie_id']}}">Remove {{movie.title}} from Watchlist</button></form> -->
+
+   
+    <form action="/ratemovie" id="ratemovie">
+    <fieldset>
+    <legend>Rate {{movie.title}}</legend>
+    <select id="rating">
+    <option value="1">1 star<br>
+    <option value="2">2 stars<br>
+    <option value="3">3 stars<br>
+    <option value="4">4 stars<br>
+    <option value="5">5 stars<br>
+    </select>
+    <input type="hidden" id="movie_id" value="{{movie['movie_id']}}"/>
+    <input type="submit" value="Rate!"/>
+    </fieldset>
+</form> 
+
+    {%endfor%}
 </dl>
 </div>
     <script src="/static/account.jsx"></script>
