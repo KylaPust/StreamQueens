@@ -130,6 +130,14 @@ def find_rating_by_user_movie(user_id, movie_id):
 
     return rating
 
+def update_rating(rating_id, new_rating):
+
+    rating_obj = Rating.query.filter_by(rating_id=rating_id).first()
+
+    rating_obj.rating = new_rating
+
+    return rating_obj    
+
 def genres_dicts():
 
     genres_dict = {"1":"Biography",

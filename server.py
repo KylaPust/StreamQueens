@@ -128,7 +128,13 @@ def rate_movie():
     user = users.get_user_by_email(email)
     user_id = user.user_id
     movie_id = request.args.get("movie")
-    new_rating = users.create_rating(user_id, movie_id, rating)
+    current_rating = users.find_rating_by_user_movie(user_id, movie_id)
+
+    if current_rating:
+        new_rating = users.update_rating(current_rating.rating_id, rating)
+    else:
+        new_rating = users.create_rating(user_id, movie_id, rating)
+    
     print(new_rating)
     return f"movie_id: {movie_id} movie is rated: {new_rating}"
 
