@@ -87,6 +87,12 @@ def get_all_watched_by_user(user_id):
 
     return watchedmovies
 
+def get_all_ratings_by_user(user_id):
+
+    movieratings = Rating.query.filter_by(user_id=user_id).all()
+
+    return movieratings
+
 def get_all_watched_movieids_by_user(user_id):
 
     watchedmovies = Watch.query.filter_by(user_id=user_id).all()
@@ -135,6 +141,7 @@ def update_rating(rating_id, new_rating):
     rating_obj = Rating.query.filter_by(rating_id=rating_id).first()
 
     rating_obj.rating = new_rating
+    db.session.commit()
 
     return rating_obj    
 

@@ -24,7 +24,7 @@ const get_movies = document.querySelector('#get-movies');
                  const keyRender = ("<li>" + keyTitle + "  on " + streamingsite + "<br>"
                  + '<form action="/addtowatchlist" id="rendered_list"'+'value="'+dataJson[key]+'"><button type="submit" id="movie" value="'+
                  dataJson[key]['movie_id'] +'">Add to Watchlist</button></form>' 
-                 + "</li>" + "<a href=" + '"' + link + '">' +
+                + "</li>"+"<a href=" + '"' + link + '">' +
                  "<img src=" + '"' + keyPoster + '"' 
                  + " " + 'width="300"' + " " + 'height="400"></a>');
 

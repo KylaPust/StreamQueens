@@ -132,11 +132,14 @@ def rate_movie():
 
     if current_rating:
         new_rating = users.update_rating(current_rating.rating_id, rating)
+        
     else:
         new_rating = users.create_rating(user_id, movie_id, rating)
     
     print(new_rating)
-    return f"movie_id: {movie_id} movie is rated: {new_rating}"
+    rating_val = new_rating.rating
+    print(f'new_rating.rating: {rating_val}')
+    return f'current: {current_rating} new: {new_rating}'
 
 @app.route('/account')
 def user_account():
@@ -146,11 +149,12 @@ def user_account():
         user = users.get_user_by_email(email)
         user_id = user.user_id
         all_watched = users.get_all_watched_by_user(user_id)
+        all_ratings = users.get_all_ratings_by_user(user_id)
         movies = []
         for movie in all_watched:
             movieobj = users.get_movie_by_key(movie.movie_id)
             movies.append(movieobj)
-        return render_template("account.html", email=email, all_watched=movies)
+        return render_template("account.html", email=email, all_watched=movies, all_ratings=all_ratings)
     else:
         flash("Oops, please log in before viewing your account")
         return redirect("/")

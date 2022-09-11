@@ -13,9 +13,14 @@ Your watchlist:
     <dl>
 {% for movie in all_watched %}
 <li>{{movie.title}} on {{movie.streaming}}</li>
+{%for rating in all_ratings%}
+{%if rating.movie_id == movie.movie_id%}
+<li>StreamQueens Rating:{{rating.rating}}</li>
+{%endif%}
+{%endfor%}
 <a href= "{{movie.link}}"> <img src= "https://image.tmdb.org/t/p/original{{movie.poster_path}}" width="300" height="400"></a>
 <form action="/removefromwatchlist" id="removemovie" value="{{movie}}">
-    <button type="submit" id="movie" value="{{movie['movie_id']}}">Remove {{movie.title}} from Watchlist</button></form> -->
+    <button type="submit" id="movie" value="{{movie['movie_id']}}">Remove {{movie.title}} from Watchlist</button></form>
 
    
     <form action="/ratemovie" id="ratemovie">
