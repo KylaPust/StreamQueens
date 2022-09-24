@@ -29,7 +29,7 @@ def user_login():
             flash(f"{login_user.email}, you're all set!")
     else:
         flash("Invalid Email. Try again.")
-    return redirect("/")
+    return redirect("/account")
 
 @app.route('/newaccount', methods=["POST"])
 def create_newaccount():
@@ -157,7 +157,7 @@ def user_account():
         return render_template("account.html", email=email, all_watched=movies, all_ratings=all_ratings)
     else:
         flash("Oops, please log in before viewing your account")
-        return redirect("/")
+        return redirect("/loginpage")
 
 @app.route('/logout')
 def user_logout():
@@ -169,6 +169,19 @@ def user_logout():
     else:
         flash("You're not logged in yet")
         return redirect('/')
+
+@app.route('/loginpage')
+def loginpage():
+
+    if 'email' in session:
+        return redirect('/account')
+    else:
+         return render_template("loginpage.html")
+
+@app.route('/createaccount')
+def createaccount():
+
+    return render_template("createaccount.html")
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
