@@ -6,56 +6,42 @@
 {% block title %}StreamQueens{% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">StreamQueens</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/account">Account</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/loginpage">Login</a>
-      </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
-      </li>
-    </ul>
-  </div>
-</nav>
-   
-
-  <h2>Create a New Search</h2>
-  <form action="/createdsearch" id="get-movies">      
+<div id="wrapper">
+<div >
+   <h2>Create a New Search</h2>
+  <form action="/createdsearch" id="get-movies" style="width: 50%">
+    <div class="form-group">
     <fieldset>      
-        <legend>Select a genre</legend>    
-        <select id="genre-id">
+      
+        
+      <div class="form-group">
+      <label>Select a Genre</label>
+        <select class="form-control" id="genre-id">      
         {%for key, value in genres.items()%}
         <option value="{{key}}">{{value}}</option>
         {%endfor%}
         </select>    
         <br>
-        <legend>Movie or Show?</legend>    
-        <select id="result_type">
+        <div class="form-group">
+          <label>Movie or Show?</label>
+          <select class="form-control" id="result_type">   
         <option value="movie">Movie</option>  
         <option value="series">Show</option>
           </select>
         <br>
-        <legend>Exclude Watchlist from results?</legend>
-        <select id="exclude_watchlist">
+        <div class="form-group">
+          <label>Exclude shows/movies in your watchlist?</label>
+          <select class="form-control" id="exclude_watchlist">  
           <option value="no">No</option>
           <option value="yes">Yes</option>  
           </select>
+        </div>
+        
         <br>
-        <legend> Select streaming services </legend>
-        <select multiple id="service">
+      
+        <div class="form-group">
+            <label>Select 1 or more streaming services</label>
+            <select multiple class="form-control" id="service">
         <option value="netflix">netflix<br>      
         <option value="hulu">hulu<br>      
         <option value="prime">prime<br>  
@@ -68,16 +54,21 @@
         <option value="apple">apple<br>  
 
       </select>
+      </div>
         <br>      
-        <input type="submit" value="Submit" />      
+        <button type="submit" class="btn btn-outline-light" value="Submit">Submit</button>  
     </fieldset>      
+    </div>
 </form>
-<div id="disply-movie">
+</div>
+<div id="disply-movie" style="display: flex;">
   <h1>Movie Results</h1>
-  <dl>
-  
-    <dd id="title"></dd>
-  </dl>
+  <div class="container-fluid">
+    <div class="row flex-row flex-nowrap" id="title">
+  </div>
+</div>
+</div>
 </div>
 <script src="/static/app.jsx"></script>
+</div>
 {% endblock %}

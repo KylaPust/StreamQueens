@@ -38,4 +38,3 @@ for (let i = 0; i < RateMovie.length; i++){
                 location.reload()
                 })}
                 )}; 
-            

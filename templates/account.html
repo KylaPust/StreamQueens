@@ -2,64 +2,44 @@
 {% block title %}StreamQueens: My Account{% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">StreamQueens</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/account">Account<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/loginpage">Login</a>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-        </li>
-      </ul>
-    </div>
-  </nav>
-This is your account {{email}}
-Your watchlist:
 <div id="account-watchlist">
-    <h1>Movie Results</h1>
-    <dl>
+    <h1>{{email}}'s Watchlist</h1>
+    <div class="container">
+      <div class="row" style="overflow:auto">
 {% for movie in all_watched %}
-<li>{{movie.title}} on {{movie.streaming}}</li>
+
+<div class="col-lg-3 d-flex align-items-stretch">
+<div class="card card-block" style="width: 18rem;">
+  <img class="card-img-top" href= "{{movie.link}}" 
+  src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" alt="{{movie.title}}"
+  data-toggle="modal" data-target="#myModal">
+  
+  <h5 class="card-title">{{movie.title}}</h5>
 {%for rating in all_ratings%}
 {%if rating.movie_id == movie.movie_id%}
-<li>StreamQueens Rating:{{rating.rating}}</li>
+<h6 class="card-subtitle mb-2 text-muted">Your StreamQueens Rating:{{rating.rating}}</h6>
 {%endif%}
 {%endfor%}
-<a href= "{{movie.link}}"> <img src= "https://image.tmdb.org/t/p/original{{movie.poster_path}}" width="300" height="400"></a>
-<form action="/removefromwatchlist" id="removemovie" value="{{movie}}">
-    <button type="submit" id="movie" value="{{movie['movie_id']}}">Remove {{movie.title}} from Watchlist</button></form>
-
-   
-    <form action="/ratemovie" id="ratemovie">
-    <fieldset>
-    <legend>Rate {{movie.title}}</legend>
-    <select id="rating">
-    <option value="1">1 star<br>
-    <option value="2">2 stars<br>
-    <option value="3">3 stars<br>
-    <option value="4">4 stars<br>
-    <option value="5">5 stars<br>
-    </select>
+    <form style="display: flex;" action="/ratemovie" id="ratemovie">
+    <div class="form-group">
+      <select class="form-control" id="rating">  
+        <option value="1">1 star<br>
+          <option value="2">2 stars<br>
+          <option value="3">3 stars<br>
+          <option value="4">4 stars<br>
+          <option value="5">5 stars<br>
+          </select>
+    </div>
     <input type="hidden" id="movie_id" value="{{movie['movie_id']}}"/>
-    <input type="submit" value="Rate!"/>
-    </fieldset>
+    <input class="btn btn-outline-secondary" type="submit" value="Rate!"/>
 </form> 
-
+<form action="/removefromwatchlist" id="removemovie" value="{{movie}}">
+  <button class="btn btn-outline-light btn-sm" type="submit" id="movie" value="{{movie['movie_id']}}">Remove from Watchlist</button></form>
+</div>
+</div>
     {%endfor%}
-</dl>
+  </div>
+  </div>
 </div>
     <script src="/static/account.jsx"></script>
     {% endblock %}
