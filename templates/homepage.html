@@ -6,9 +6,11 @@
 {% block title %}StreamQueens{% endblock %}
 
 {% block body %}
-<div id="wrapper">
-<div >
-   <h2>Create a New Search</h2>
+
+<div>
+  <h1 class="header-center">Create a Search</h1>
+<div class="form-center">
+   <!-- <h2>Create a New Search</h2> -->
   <form action="/createdsearch" id="get-movies" style="width: 50%">
     <div class="form-group">
     <fieldset>      
@@ -61,8 +63,9 @@
     </div>
 </form>
 </div>
+
 <div id="disply-movie" style="display: flex;">
-  <h1>Movie Results</h1>
+  
   <div class="container-fluid">
     <div class="row flex-row flex-nowrap" id="title">
   </div>

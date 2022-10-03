@@ -21,11 +21,12 @@ const get_movies = document.querySelector('#get-movies');
                  const streamingsite = dataJson[key]['streaming']
                  const link = dataJson[key]["link"]
                  const keyPoster = ("https://image.tmdb.org/t/p/original" + dataJson[key]["poster_path"])
-                 const keyRender = ('<div class="col-4 d-flex align-items-stretch""><div class="card card-block" style="width: 18rem;"><img class="card-img-top" src='
+                 const keyRender = ('<div id="searchpad" class="col-4 d-flex align-items-stretch""><div class="card card-block" style="width: 20rem;"><img class="card-img-top" src='
                  + '"' + keyPoster + '"' + 'alt=' + '“' + keyTitle + '“' + 
                  '> <div class="card-body"><h5 class="card-title”>' + keyTitle + 
-                 '</h5><p class="card-text”>' + keyTitle + '</p><a href=' +  link + ' ' + 'class="btn btn-success">Go to ' + streamingsite + '</a><p><form action="/addtowatchlist" id="rendered_list"'+
-                 'value="'+dataJson[key]+'"><button class="btn btn-light" type="submit" id="movie" value="'+
+                 '</h5><p class="card-text”>' + keyTitle + '</p><a class="header-center" href=' +  link + ' ' + 'class="btn btn-success">Go to ' + streamingsite 
+                 + '</a><p><form action="/addtowatchlist" id="rendered_list"'+
+                 'value="'+dataJson[key]+'"><button class="btn btn-outline-light" type="submit" id="movie" value="'+
                  dataJson[key]['movie_id'] +'">Add to Watchlist</button></form></div></div>');
 
                 document.querySelector('#title').insertAdjacentHTML('beforeend', keyRender)};

@@ -8,16 +8,16 @@
       <div class="row" style="overflow:auto">
 {% for movie in all_watched %}
 
-<div class="col-lg-3 d-flex align-items-stretch">
+<div class="col-lg-3 d-flex align-items-stretch" id="cardpad">
 <div class="card card-block" style="width: 18rem;">
   <img class="card-img-top" href= "{{movie.link}}" 
   src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" alt="{{movie.title}}"
   data-toggle="modal" data-target="#myModal">
   
-  <h5 class="card-title">{{movie.title}}</h5>
+  <h5 class="card-title" id="accounttitle">{{movie.title}}</h5>
 {%for rating in all_ratings%}
 {%if rating.movie_id == movie.movie_id%}
-<h6 class="card-subtitle mb-2 text-muted">Your StreamQueens Rating:{{rating.rating}}</h6>
+<h6 class="card-subtitle mb-2 text-muted" id="accounttitle">Your StreamQueens Rating: {{rating.rating}}</h6>
 {%endif%}
 {%endfor%}
     <form style="display: flex;" action="/ratemovie" id="ratemovie">
@@ -31,7 +31,7 @@
           </select>
     </div>
     <input type="hidden" id="movie_id" value="{{movie['movie_id']}}"/>
-    <input class="btn btn-outline-secondary" type="submit" value="Rate!"/>
+    <input class="btn btn-outline-secondary btn-sm" type="submit" value="Rate!"/>
 </form> 
 <form action="/removefromwatchlist" id="removemovie" value="{{movie}}">
   <button class="btn btn-outline-light btn-sm" type="submit" id="movie" value="{{movie['movie_id']}}">Remove from Watchlist</button></form>

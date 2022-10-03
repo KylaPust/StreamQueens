@@ -24,12 +24,14 @@ def user_login():
     if login_user:
         if login_user.password != password:
             flash("Your password is wrong, try again")
+            return render_template("loginpage.html")
         else:
             session['email'] = email
-            flash(f"{login_user.email}, you're all set!")
+            flash(f"{login_user.email}, here is your account!")
+            return redirect("/account")
     else:
         flash("Invalid Email. Try again.")
-    return redirect("/account")
+        return render_template("loginpage.html")
 
 @app.route('/newaccount', methods=["POST"])
 def create_newaccount():
@@ -40,13 +42,13 @@ def create_newaccount():
     
     if existing_user:
         flash(f"An account already exists for this email: {email}")
+        return render_template("createaccount.html")
     else:
         user = crud.create_user(email, password)
         db.session.add(user)
         db.session.commit()
-        flash(f"Thanks {email}!  Your account is now created")
-    
-    return redirect("/")
+        flash(f"Thanks {email}!  Your account is now created, get started by searching below!")
+        return redirect("/")
 
 
 @app.route('/createdsearch')
@@ -63,8 +65,9 @@ def query_results():
     
         movies = movie_api.get_api_results(genre, result_type, service)
 
-        for movie in movies:
-            if exclude_watchlist == 'yes' and 'email' in session:
+        if exclude_watchlist == 'yes' and 'email' in session:
+            for movie in movies:
+            
                 movie_id = movie.movie_id
                 email = session['email']
                 user = users.get_user_by_email(email)
@@ -76,11 +79,12 @@ def query_results():
                     print(f'movies once removed {movies}')
                 else:
                     json_movies[movie.movie_id] = movie.to_dict()
-            elif 'email' in session:
-                json_movies[movie.movie_id] = movie.to_dict()
-            elif 'email' not in session:
+
+        elif exclude_watchlist == 'yes' and 'email' not in session:
                 flash('please log in to use the exclude from watchlist feature')
-                json_movies[movie.movie_id] = movie.to_dict()
+        else:
+                for movie in movies:
+                    json_movies[movie.movie_id] = movie.to_dict()
             
  
     # flash("Here are your results")
