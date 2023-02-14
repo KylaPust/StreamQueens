@@ -3,7 +3,7 @@ import requests
 url = "https://streaming-availability.p.rapidapi.com/genres"
 
 headers = {
-	"X-RapidAPI-Key": "a9ea500941msh7faeb06cb2027e8p12dd98jsn94738e7d4524",
+	"X-RapidAPI-Key": "key",
 	"X-RapidAPI-Host": "streaming-availability.p.rapidapi.com"
 }
 
